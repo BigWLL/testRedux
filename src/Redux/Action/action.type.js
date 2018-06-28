@@ -11,4 +11,9 @@ const AppDresult = "AppDresult";
 const AppBclear = "AppBclear";
 const AppCclear = "AppCclear";
 
-export{AppB,AppBasyn,AppC,AppD,AppBclear,AppCclear,AppDasyn,AppDresult};
+const AppLoginName="AppLoginName";
+const AppLoginPassword="AppLoginPassword";
+const AppLoginButtonThunk="AppLoginButtonThunk";
+const AppLoginButtonSaga="AppLoginButtonSaga";
+
+export{AppB,AppBasyn,AppC,AppD,AppBclear,AppCclear,AppDasyn,AppDresult,AppLoginName,AppLoginPassword,AppLoginButtonThunk,AppLoginButtonSaga};

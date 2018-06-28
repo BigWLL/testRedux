@@ -18,7 +18,7 @@ class App extends React.Component {
     }
 
     componentWillReceiveProps() {
-        console.log(11111, this.props)
+        console.log('componentWillReceiveProps', this.props)
     }
 
     render() {

@@ -9,6 +9,7 @@ import AppB from '../AppB/AppB.js';
 import AppC from '../AppC/AppC.js';
 import AppD from '../AppD/AppD.js';
 import Nav from '../Nav/Nav.js';
+import AppLogin from '../AppLogin/AppLogin.js';
 
 export default class router extends React.Component {
     constructor(props,context) {
@@ -25,6 +26,7 @@ export default class router extends React.Component {
                         <Route path="/appB" component={AppB}/>
                         <Route path="/appC" component={AppC}/>
                         <Route path="/appD" component={AppD}/>
+                        <Route path="/appLogin" component={AppLogin}/>
                     </Switch>
                 </div>
 

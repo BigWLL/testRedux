@@ -12,6 +12,7 @@ export default class App extends React.Component {
              <li><NavLink to="/appB" replace>AppB</NavLink></li>
              <li><NavLink to="/appC" replace>AppC</NavLink></li>
              <li><NavLink to="/appD" replace>AppD</NavLink></li>
+             <li><NavLink to="/appLogin" replace>AppLogin</NavLink></li>
          </div>
         )
     }

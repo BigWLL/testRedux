@@ -3,7 +3,7 @@
  */
 import * as Action from "../Action/action.type.js";
 
-const AppD = (state = [1], action) => {
+const AppD = (state = [], action) => {
     switch (action.type) {
         case Action.AppDresult:
             console.log('Action.AppDasyn.state', state)

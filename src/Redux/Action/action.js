@@ -63,4 +63,75 @@ const AppCclear = (e) => (
             type: Action.AppCclear
         })
 
-export {AppBdo, AppBasyn, AppCdo, AppDdo, AppBclear, AppCclear, AppCdoAsync, AppDdoAsyn, AppDdoResult};
+//登录
+const AppLoginName = (e) => (
+    {
+        type: Action.AppLoginName,
+        name: e
+    });
+const AppLoginPassword = (e) => (
+    {
+        type: Action.AppLoginPassword,
+        password: e
+    })
+const AppLoginButtonThunk = (e) => (dispatch, getState) => (
+    console.log('AppLoginButton', getState().AppLogin.name),
+    axios.post('/login', {
+        'name': getState().AppLogin.name,
+        'password': getState().AppLogin.password
+    }).then((res) => {
+        console.log(res.data.success);
+        switch (res.data.success) {
+            case true || 'true':
+                dispatch({
+                    type: Action.AppLoginButtonThunk,
+                    text:'看来是成功了'
+                })
+                break;
+            default:
+                dispatch({
+                    type: Action.AppLoginButtonThunk,
+                    text:'肯定是失败了'
+                })
+                break;
+        }
+    })
+)
+const AppLoginButtonSaga =  (e) => (dispatch, getState) => (
+    console.log('AppLoginButton', getState().AppLogin.name),
+        axios.post('/login', {
+            'name': getState().AppLogin.name,
+            'password': getState().AppLogin.password
+        }).then((res) => {
+            console.log(res.data.success);
+            switch (res.data.success) {
+                case true || 'true':
+                    dispatch({
+                        type: Action.AppLoginButtonThunk,
+                        text:'看来是成功了'
+                    })
+                    break;
+                default:
+                    dispatch({
+                        type: Action.AppLoginButtonThunk,
+                        text:'肯定是失败了'
+                    })
+                    break;
+            }
+        })
+)
+export {
+    AppBdo,
+    AppBasyn,
+    AppCdo,
+    AppDdo,
+    AppBclear,
+    AppCclear,
+    AppCdoAsync,
+    AppDdoAsyn,
+    AppDdoResult,
+    AppLoginName,
+    AppLoginPassword,
+    AppLoginButtonThunk,
+    AppLoginButtonSaga
+};
