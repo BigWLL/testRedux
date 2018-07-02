@@ -31,7 +31,7 @@ class AppB extends Component {
     render() {
         return (
             <div>
-                <strong>父组件是普通的react，父组件axios获取数据，子组件与store相连接，采用redux</strong>
+                <strong>父组件是普通的react，子组件DomLayer中通过axios/thunk获取数据，子组件与store相连接，采用redux</strong>
                 <DomLayer list={this.state.list}/>
                 <Result/>
                 <Clear/>

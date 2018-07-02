@@ -4,7 +4,6 @@
 import * as Action from "../Action/action.type.js";
 
 const AppLogin = (state = {"name": "", "password": ""}, action) => {
-    console.log('AppLogin', state)
     switch (action.type) {
         case Action.AppLoginName:
             state.name = action.name
@@ -30,10 +29,11 @@ const AppLoginButtonThunk = (state = "", action) => {
             break;
     }
 }
-const AppLoginButtonSaga = (state = "", action) => {
+const AppLoginSaga = (state = "", action) => {
     switch (action.type) {
-        case Action.AppLoginButtonThunk:
-            state = action.text;
+        case Action.AppLoginSaga:
+            console.log('AppLoginSaga',action)
+            state = action.result
             return state;
             break
         default:
@@ -41,4 +41,4 @@ const AppLoginButtonSaga = (state = "", action) => {
             break;
     }
 }
-export {AppLogin, AppLoginButtonThunk,AppLoginButtonSaga};
+export {AppLogin, AppLoginButtonThunk,AppLoginSaga};

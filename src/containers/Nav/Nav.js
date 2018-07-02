@@ -8,6 +8,7 @@ export default class App extends React.Component {
     render(){
         return (
          <div>
+             <li><NavLink to="/conclusion" replace>周期</NavLink></li>
              <li><NavLink to="/appA" replace>AppA</NavLink></li>
              <li><NavLink to="/appB" replace>AppB</NavLink></li>
              <li><NavLink to="/appC" replace>AppC</NavLink></li>

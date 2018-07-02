@@ -15,6 +15,7 @@ Mock.mock('/a', {
     ]
 });
 Mock.mock('/login', 'post', (res) => {
+    console.log('login',res)
     let obj = {}, data = JSON.parse(res.body);
 //简单的验证，暂时先这样
     if (data.name == 'admin' && data.password == 123456) {
