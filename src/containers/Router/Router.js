@@ -24,8 +24,8 @@ export default class router extends React.Component {
                 <div>
                     <Nav/>
                     <Switch>
-                        <Route exact path="/conclusion" component={Conclusion}/>
-                        <Route exact path="/appA" component={AppA}/>
+                        <Route path="/conclusion" component={Conclusion}/>
+                        <Route path="/appA" component={AppA}/>
                         <Route path="/appB" component={AppB}/>
                         <Route path="/appC" component={AppC}/>
                         <Route path="/appD" component={AppD}/>

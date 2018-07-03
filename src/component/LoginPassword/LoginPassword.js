@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 const LoginPassword =(props)=>{
     const Format=(e)=> {
-        console.log('Format',e.target.value)
         let name = e.target.value.trim();
         props.handle(name);
     }

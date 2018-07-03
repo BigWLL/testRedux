@@ -21,7 +21,7 @@ function* AppDSagaAsyn(e) {
     yield put({type: Action.AppDresult, result: todos});
 }
 
-function* AppLoginSaga(e) {
+function* LoginSaga(e) {
     console.log(e)
     let todos = yield call(axios.post, "/login", {
         'name': e.result.name,
@@ -44,7 +44,7 @@ function* AppLoginSaga(e) {
 function* WatchSaga() {
     yield takeEvery(Action.AppD, AppDSaga)
     yield takeEvery(Action.AppDasyn, AppDSagaAsyn)
-    yield takeEvery(Action.AppLoginButtonSaga, AppLoginSaga)
+    yield takeEvery(Action.AppLoginButtonToSaga,LoginSaga)
 }
 
 //根方法
