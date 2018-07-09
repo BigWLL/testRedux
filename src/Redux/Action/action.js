@@ -64,61 +64,60 @@ const AppCclear = (e) => (
         })
 
 //登录
-const AppLoginName = (e) => (
+const AppLoginNameThunk = (e) => (
     {
-        type: Action.AppLoginName,
+        type: Action.AppLoginNameThunk,
         name: e
     });
-const AppLoginPassword = (e) => (
+const AppLoginPasswordThunk = (e) => (
     {
-        type: Action.AppLoginPassword,
+        type: Action.AppLoginPasswordThunk,
         password: e
     })
-const AppLoginButtonThunk = (e) => (dispatch, getState) => (
-    console.log('AppLoginButton', getState().AppLogin.name),
+const AppLoginNameSaga = (e) => (
+    {
+        type: Action.AppLoginNameSaga,
+        name: e
+    });
+const AppLoginPasswordSaga = (e) => (
+    {
+        type: Action.AppLoginPasswordSaga,
+        password: e
+    })
+const AppLoginButtonThunk = (e) => (dispatch, getState) => {
+    console.log('AppLoginButtonThunk', getState().AppLoginThunk.name)
+    let name = getState().AppLoginThunk.name;
+    let password = getState().AppLoginThunk.password;
+    if (name==''||password=='') {
+        alert('请输入正确内容');
+        return
+    }
     axios.post('/login', {
-        'name': getState().AppLogin.name,
-        'password': getState().AppLogin.password
+        'name': name,
+        'password': password
     }).then((res) => {
         console.log(res.data.success);
         switch (res.data.success) {
             case true || 'true':
                 dispatch({
                     type: Action.AppLoginButtonThunk,
-                    text:'看来是成功了'
+                    text: '看来是成功了'
                 })
                 break;
             default:
                 dispatch({
                     type: Action.AppLoginButtonThunk,
-                    text:'肯定是失败了'
+                    text: '肯定是失败了'
                 })
                 break;
         }
     })
-)
-const AppLoginButtonSaga =  (e) => (dispatch, getState) => (
-    console.log('AppLoginButton', getState().AppLogin.name),
-        axios.post('/login', {
-            'name': getState().AppLogin.name,
-            'password': getState().AppLogin.password
-        }).then((res) => {
-            console.log(res.data.success);
-            switch (res.data.success) {
-                case true || 'true':
-                    dispatch({
-                        type: Action.AppLoginButtonThunk,
-                        text:'看来是成功了'
-                    })
-                    break;
-                default:
-                    dispatch({
-                        type: Action.AppLoginButtonThunk,
-                        text:'肯定是失败了'
-                    })
-                    break;
-            }
-        })
+}
+const AppLoginButtonToSaga = (e) => (
+    {
+        type: Action.AppLoginButtonToSaga,
+        result: e
+    }
 )
 export {
     AppBdo,
@@ -130,8 +129,10 @@ export {
     AppCdoAsync,
     AppDdoAsyn,
     AppDdoResult,
-    AppLoginName,
-    AppLoginPassword,
+    AppLoginNameThunk,
+    AppLoginNameSaga,
+    AppLoginPasswordThunk,
+    AppLoginPasswordSaga,
     AppLoginButtonThunk,
-    AppLoginButtonSaga
+    AppLoginButtonToSaga
 };

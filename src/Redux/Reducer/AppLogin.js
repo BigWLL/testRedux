@@ -3,14 +3,14 @@
  */
 import * as Action from "../Action/action.type.js";
 
-const AppLogin = (state = {"name": "", "password": ""}, action) => {
-    console.log('AppLogin', state)
+//thunk方式时，name，pwd，的监听方法，特意做的区分
+const AppLoginThunk = (state = {"name": "", "password": ""}, action) => {
     switch (action.type) {
-        case Action.AppLoginName:
+        case Action.AppLoginNameThunk:
             state.name = action.name
             return state
             break;
-        case Action.AppLoginPassword:
+        case Action.AppLoginPasswordThunk:
             state.password = action.password
             return state
             break;
@@ -19,6 +19,23 @@ const AppLogin = (state = {"name": "", "password": ""}, action) => {
     }
 
 };
+//saga方式时，name，pwd，的监听方法，特意做的区分
+const AppLoginSaga = (state = {"name": "", "password": ""}, action) => {
+    switch (action.type) {
+        case Action.AppLoginNameSaga:
+            state.name = action.name
+            return state
+            break;
+        case Action.AppLoginPasswordSaga:
+            state.password = action.password
+            return state
+            break;
+        default:
+            return state;
+    }
+
+};
+//thunk时候监听登陆按钮
 const AppLoginButtonThunk = (state = "", action) => {
     switch (action.type) {
         case Action.AppLoginButtonThunk:
@@ -30,10 +47,11 @@ const AppLoginButtonThunk = (state = "", action) => {
             break;
     }
 }
+//Saga，时候监听登陆按钮从saga内推过来的结果
 const AppLoginButtonSaga = (state = "", action) => {
     switch (action.type) {
-        case Action.AppLoginButtonThunk:
-            state = action.text;
+        case Action.AppLoginSaga:
+            state = action.result
             return state;
             break
         default:
@@ -41,4 +59,4 @@ const AppLoginButtonSaga = (state = "", action) => {
             break;
     }
 }
-export {AppLogin, AppLoginButtonThunk,AppLoginButtonSaga};
+export {AppLoginThunk, AppLoginButtonThunk,AppLoginSaga,AppLoginButtonSaga};

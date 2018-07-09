@@ -10,7 +10,7 @@ import LoginName from '../../component/LoginName/LoginName'
 import LoginPassword from '../../component/LoginPassword/LoginPassword'
 import Button from '../../component/Button/Button'
 
-import {AppLoginName, AppLoginPassword, AppLoginButtonThunk,AppLoginButtonSaga} from '../../Redux/Action/action';
+import {AppLoginNameThunk, AppLoginPasswordThunk,AppLoginNameSaga,AppLoginPasswordSaga, AppLoginButtonThunk, AppLoginButtonToSaga} from '../../Redux/Action/action';
 
 class AppLogin extends Component {
     constructor(props, context) {
@@ -31,57 +31,83 @@ class AppLogin extends Component {
             <div>
                 <strong>账号admin 密码123456</strong>
                 <div>
-                    <strong>登录验证的异步使用了redux-thunk，拦截模拟用了mock</strong>
+                    <strong>登录验证的异步使用了redux-thunk，很多逻辑在action里，拦截模拟用了mock</strong>
                     <br/>
                     账号
-                    <LoginName handle={this.props.LoginName}/>
+                    <LoginName key={'ThunkName'} handle={this.props.LoginNameThunk}/>
                     <br/>
                     密码
-                    <LoginPassword handle={this.props.LoginPassword}/>
+                    <LoginPassword key={'ThunkPassword'} handle={this.props.LoginPasswordThunk}/>
                     <br/>
-                    <Button handle={this.props.ThunkLigin.bind(this)}/>
+                    <Button key={'ThunkButton'} handle={this.props.ThunkLogin.bind(this)}/>
                     <br/>
-                    <p>thunk的登录{this.props.text}</p>
+                    <p>thunk的登录{this.props.textA}</p>
                 </div>
                 <div>
-                    <strong>登录验证的异步使用了redux-thunk，拦截模拟用了mock</strong>
+                    <strong>登录验证的异步使用了redux-thunk，很多逻辑在saga和自身组件里，拦截模拟用了mock</strong>
                     <br/>
                     账号
-                    <LoginName handle={this.props.LoginName}/>
+                    <LoginName key={'SagaName'} handle={this.props.LoginNameSaga}/>
                     <br/>
                     密码
-                    <LoginPassword handle={this.props.LoginPassword}/>
+                    <LoginPassword key={'SagaPassword'} handle={this.props.LoginPasswordSaga}/>
                     <br/>
-                    <Button handle={this.props.SagaLogin.bind(this)}/>
+                    <Button key={'ThunkButton'} handle={this.props.SagaLogin.bind(this, this.context)}/>
                     <br/>
-                    <p>saga的登录{this.props.text}</p>
-
+                    <p>saga的登录{this.props.textB}</p>
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state, ownProps) => (
-    console.log('.text',state),
-    {
-        text: state.AppLoginButtonThunk
+//判断内容是否为空
+const format = (e) => {
+    let name = e.name, password = e.password;
+    if (name == '' || password == '') {
+        return false
     }
+    return e;
+}
+const switchResult = (e, callback, event) => {
+    switch (e) {
+        case false:
+            alert('请输入正确内容')
+            break;
+        default:
+            event(callback(e))
+            break;
+    }
+}
+
+const mapStateToProps = (state, ownProps) => (
+        {
+            textA: state.AppLoginButtonThunk,
+            textB: state.AppLoginButtonSaga
+        }
 )
 const mapDispatchToProps = (dispatch, state) => (
     {
-        LoginName: (e) => {
-            dispatch(AppLoginName(e))
+        LoginNameThunk: (e) => {
+            dispatch(AppLoginNameThunk(e))
         },
-        LoginPassword: (e) => {
-            dispatch(AppLoginPassword(e))
+        LoginPasswordThunk: (e) => {
+            dispatch(AppLoginPasswordThunk(e))
         },
-        ThunkLigin: () => {
+        LoginNameSaga: (e) => {
+            dispatch(AppLoginNameSaga(e))
+        },
+        LoginPasswordSaga: (e) => {
+            dispatch(AppLoginPasswordSaga(e))
+        },
+        ThunkLogin: () => {
             dispatch(AppLoginButtonThunk())
         },
-        SagaLogin: () => {
-            alert('没做完呢别着急')
-            // dispatch(AppLoginButtonSaga())
+        SagaLogin: (e) => {
+            console.log(e.store.getState())
+            let store = e.store.getState().AppLoginSaga;
+            let result = format(store);
+            switchResult(result, AppLoginButtonToSaga, dispatch)
         }
     });
 AppLogin.contextTypes = {
